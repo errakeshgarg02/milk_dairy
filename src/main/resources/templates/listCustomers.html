@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Milk Dairy | Customers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+
+	<table style="width: 50%">
+		<tr>
+			<th>Firstname</th>
+			<th>Lastname</th>
+			<th>Customer Code</th>
+			<th>Father Name</th>
+			<th>Mobile Number</th>
+			<th>Address</th>
+		</tr>		
+		<tr th:each="customer: ${customers}">
+			<td th:text="${customer.firstName}">Oranges</td>
+			<td th:text="${customer.lastName}">Oranges</td>
+			<td th:text="${customer.customerCode}">Oranges</td>
+			<td th:text="${customer.fatherName}">Oranges</td>
+			<td th:text="${customer.mobileNumber}">Oranges</td>
+			<td th:text="${customer.address}">Oranges</td>
+		</tr>
+	</table>
+</body>
+</html>
