@@ -117,7 +117,11 @@ public abstract class CommonDAO {
 		LOG.info("getLastRecord");
 		Object obj  = null;
 		try {
-			obj = entityManager.createQuery("from "+clazz.getName()+" order by CREATED_DATE DESC").setMaxResults(1).getResultList().get(0);
+			List resultList = entityManager.createQuery("from "+clazz.getName()+" order by CREATED_DATE DESC").setMaxResults(1).getResultList();
+			LOG.info("getLastRecord list size :"+resultList.size());
+			if(resultList != null && resultList.size() == 1) {
+				obj = resultList.get(0);
+			}
 						
 		}catch (Exception e) {
 			throw new DAOException(e.getMessage(),e);

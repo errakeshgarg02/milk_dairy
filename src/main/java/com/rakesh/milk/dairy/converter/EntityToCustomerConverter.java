@@ -13,13 +13,17 @@ public class EntityToCustomerConverter implements Function<CustomerEntity, Custo
 	@Override
 	public Customer apply(CustomerEntity customerEntity) {
 		Customer customer = new Customer();
-		customer.setActive(customerEntity.getActive());
-		customer.setAddress(customerEntity.getAddress());
-		customer.setCustomerCode(customerEntity.getCustomerCode());
-		customer.setFatherName(customerEntity.getFatherName());
-		customer.setFirstName(customerEntity.getFirstName());
-		customer.setLastName(customerEntity.getLastName());
-		customer.setMobileNumber(customerEntity.getMobileNumber());
+		if(customerEntity != null) {
+			
+			customer.setActive(customerEntity.getActive());
+			customer.setAddress(customerEntity.getAddress());
+			customer.setCustomerCode(customerEntity.getCustomerCode());
+			customer.setFatherName(customerEntity.getFatherName());
+			customer.setFirstName(customerEntity.getFirstName());
+			customer.setLastName(customerEntity.getLastName());
+			customer.setMobileNumber(customerEntity.getMobileNumber());			
+		}
+
 		return customer;
 	}
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rakesh.milk.dairy.message.Customer;
@@ -33,15 +34,11 @@ public class CustomerRegisterController {
 		LOG.info("opening signup.html page");
 		ModelAndView modelAndView = null;
 		try {
-			Customer customer = customerService.getLastRecord();
-			if(customer == null) {
-				modelAndView = new ModelAndView("signup", "customer", new Customer("P1"));
-			}else {
-				modelAndView = new ModelAndView("signup", "customer", new Customer("P1"));
-			}
+			Customer customer = customerService.getLastRecord();			
+			modelAndView = new ModelAndView("signup", "customer", customer);			
 			
 		}catch (Exception e) {
-			// TODO: handle exception
+			LOG.error("Error while opening signup page,",e);
 		}
 
 		return modelAndView;
@@ -51,7 +48,7 @@ public class CustomerRegisterController {
 	public String register(@ModelAttribute(value = "customer") Customer customer) {
 		LOG.info("registering customer ::" + customer);
 		if (customer != null) {
-			customer.setCustomerCode("CUS01");
+			//customer.setCustomerCode("CUS01");
 			customer.setActive(true);
 			customerService.registerCustomer(customer);
 		}else {
@@ -76,4 +73,9 @@ public class CustomerRegisterController {
 		return modelAndView;
 
 	}
+	
+	public List<Customer> getCustomer(@RequestParam("name")String name){
+		return null;
+	}
+	
 }

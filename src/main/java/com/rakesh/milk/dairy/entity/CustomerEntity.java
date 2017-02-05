@@ -2,6 +2,7 @@ package com.rakesh.milk.dairy.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,9 +41,9 @@ public class CustomerEntity implements Serializable{
 	@Column(name="ACTIVE")
 	private Boolean active;
 	@Column(name="CREATED_DATE")
-	private LocalDateTime createdDate;
+	private Date createdDate;
 	@Column(name="MODIFIED_DATE")
-	private LocalDateTime modifiedDate;
+	private Date modifiedDate;
 	public Integer getId() {
 		return id;
 	}
@@ -92,16 +93,16 @@ public class CustomerEntity implements Serializable{
 		this.active = active;
 	}
 	
-	public LocalDateTime getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
-	public void setCreatedDate(LocalDateTime createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	public LocalDateTime getModifiedDate() {
+	public Date getModifiedDate() {
 		return modifiedDate;
 	}
-	public void setModifiedDate(LocalDateTime modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
 	@Override

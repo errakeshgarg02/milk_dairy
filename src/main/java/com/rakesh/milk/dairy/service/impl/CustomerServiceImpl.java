@@ -61,8 +61,21 @@ public class CustomerServiceImpl implements CustomerService {
 		LOG.info("CustomerServiceImpl.getLastRecord method");
 		Customer customer = null;
 		try {
-			CustomerEntity customerEntity = (CustomerEntity) customerDAO.getLastRecord(CustomerEntity.class);
+			CustomerEntity customerEntity = (CustomerEntity) customerDAO.getLastRecord(CustomerEntity.class);			
+			LOG.info("customerEntity::"+customerEntity);
 			customer = customerConverter.convertToCustomerView(customerEntity);
+			LOG.info("customer::"+customer);
+			if(customer != null && customer.getCustomerCode() != null) {
+				String code = customer.getCustomerCode();
+				
+				String[] split = code.split("((?<=[a-zA-Z])(?=[0-9]))|((?<=[0-9])(?=[a-zA-Z]))");
+				Integer c = new Integer(split[1].trim());
+				c = ++c;
+				customer.setCustomerCode(split[0]+c);
+				LOG.info("Next customer code is ::"+customer.getCustomerCode());
+			}else {
+				customer = new Customer("PA1");
+			}
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
