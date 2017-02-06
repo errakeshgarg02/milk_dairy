@@ -22,12 +22,6 @@ public class CustomerRegisterController {
 	@Autowired
 	private CustomerService customerService;
 
-	// @RequestMapping("/greeting")
-	// public String greeting(@RequestParam(value="name", required=false,
-	// defaultValue="World") String name, Model model) {
-	// model.addAttribute("name", name);
-	// return "greeting";
-	// }
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView registerCustomerPage() {
@@ -74,8 +68,27 @@ public class CustomerRegisterController {
 
 	}
 	
+	@RequestMapping(value = "/searchCustomerPage", method = RequestMethod.GET)
+	public String searchCustomerPage() {
+		return "searchCustomer";
+	}
+	
+	@RequestMapping(value = "/searchCustomer", method = RequestMethod.GET)
 	public List<Customer> getCustomer(@RequestParam("name")String name){
-		return null;
+		LOG.info("getting customer");
+		List<Customer> customers = null;
+		try {
+			if(name != null && !name.isEmpty()) {
+				customers = customerService.getCustomer(name);
+			}else {
+				throw new RuntimeException("Customer name can not be null!");
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return customers;
 	}
 	
 }

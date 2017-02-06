@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html> <!-- xmlns:th="http://www.thymeleaf.org" -->
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <!--   <p th:text="'Hello, ' + heheh + '!'" /> -->
+	<form action="#" th:action="@{/searchCustomer}"  method="GET">
+		<fieldset>
+			<legend>Search Customer</legend>
+	 		Name: <input type="text" th:field="*{name}"/> <br/>
+			<input type="submit" value="Search"/><br/>
+			<a href="/">HOME</a>
+			<a href="/showAll">list all customers</a>			
+		</fieldset>
+	</form>
+	
+	
+	
+	
+	
+</body>
+</html>

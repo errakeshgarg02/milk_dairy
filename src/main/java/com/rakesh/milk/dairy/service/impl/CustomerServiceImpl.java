@@ -70,7 +70,7 @@ public class CustomerServiceImpl implements CustomerService {
 				
 				String[] split = code.split("((?<=[a-zA-Z])(?=[0-9]))|((?<=[0-9])(?=[a-zA-Z]))");
 				Integer c = new Integer(split[1].trim());
-				c = ++c;
+				c += 1;
 				customer.setCustomerCode(split[0]+c);
 				LOG.info("Next customer code is ::"+customer.getCustomerCode());
 			}else {
@@ -81,6 +81,19 @@ public class CustomerServiceImpl implements CustomerService {
 			e.printStackTrace();
 		}
 		return customer;
+	}
+
+	@Override
+	public List<Customer> getCustomer(String name) {
+		LOG.info("CustomerServiceImpl.getCustomer method with name::"+name);
+		List<Customer> customers = null;
+		try {
+			customers = customerDAO.findByValue(Customer.class, "firstName", name);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return customers;
 	}
 
 }

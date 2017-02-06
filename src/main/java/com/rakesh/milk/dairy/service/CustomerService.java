@@ -17,4 +17,6 @@ public interface CustomerService {
 	
 	public Customer getLastRecord();
 	
+	public List<Customer> getCustomer(String name);
+	
 }
