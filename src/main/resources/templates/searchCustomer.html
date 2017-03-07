@@ -1,24 +1,74 @@
 <!DOCTYPE HTML>
-<html> <!-- xmlns:th="http://www.thymeleaf.org" -->
+<html>
+<!-- xmlns:th="http://www.thymeleaf.org" -->
 <head>
-    <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Getting Started: Serving Web Content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-  <!--   <p th:text="'Hello, ' + heheh + '!'" /> -->
-	<form action="#" th:action="@{/searchCustomer}"  method="GET">
-		<fieldset>
-			<legend>Search Customer</legend>
-	 		Name: <input type="text" th:field="*{name}"/> <br/>
-			<input type="submit" value="Search"/><br/>
-			<a href="/">HOME</a>
-			<a href="/showAll">list all customers</a>			
-		</fieldset>
-	</form>
-	
-	
-	
-	
-	
+	<div>Search customer</div>
+	Name:
+	<input type="text" name="name" id="nameId" />
+	<br />
+	<button type="button" id="searchButtonId">Search</button>
+	<br />
+	<a href="/showAll">list all customers</a>
+	<br />
+	<a href="/">HOME</a>
+	<div>
+		<table id="listCustomerId" border="2">
+			<tr>
+				<th>customer code</th>
+				<th>name</th>
+				<th>father name</th>
+				<th>mobile number</th>
+				<th>address</th>
+				<th>edit</th>
+				<th>add milk</th>
+			</tr>
+
+		</table>
+
+	</div>
+
+
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$("#searchButtonId").click(function() {
+				$('#listCustomerId tr:not(:first)').remove();
+				var name = $("#nameId").val();
+				if (name == "") {
+
+					alert("customer name can not be empty!");
+					return false;
+				}
+				$.ajax({
+					url : "/searchCustomer",
+					type : "GET",
+					data : "name=" + name,
+					//contentType:"application\json",
+					error : function(xhr, status, error) {
+						alert(status);
+						alert(error);
+
+					},
+					success : function(result, status, xhr) {
+						console.log("status ::"+status);
+						for (var i in result){
+							var row = '<tr><td>'+result[i].customerCode+'</td><td>'+result[i].firstName+ ' ' +result[i].lastName+'</td><td>'+result[i].fatherName+'</td><td>'+result[i].mobileNumber+'</td><td>'+result[i].address+'</td><td><a href="/editCustomer?id='+result[i].id+'">Edit Customer</a></td><td><a href="/addMilkDataPage?customerId='+result[i].id+'&amp;customerCode='+result[i].customerCode+'">Add Milk</a></td></tr>';
+							alert(row);
+							$("#listCustomerId").append(row);							
+						}						
+					}
+				});
+			});
+
+		});
+	</script>
 </body>
 </html>

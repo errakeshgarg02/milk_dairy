@@ -19,4 +19,8 @@ public interface CustomerService {
 	
 	public List<Customer> getCustomer(String name);
 	
+	public void updateCustomer(Customer customer);
+	
+	public Customer getCustomer(Integer id);
+	
 }

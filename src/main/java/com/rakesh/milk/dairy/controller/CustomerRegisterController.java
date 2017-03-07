@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rakesh.milk.dairy.message.Customer;
@@ -72,7 +73,7 @@ public class CustomerRegisterController {
 	public String searchCustomerPage() {
 		return "searchCustomer";
 	}
-	
+	@ResponseBody
 	@RequestMapping(value = "/searchCustomer", method = RequestMethod.GET)
 	public List<Customer> getCustomer(@RequestParam("name")String name){
 		LOG.info("getting customer");
@@ -82,13 +83,41 @@ public class CustomerRegisterController {
 				customers = customerService.getCustomer(name);
 			}else {
 				throw new RuntimeException("Customer name can not be null!");
-			}
-			
+			}			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return customers;
+	}
+	
+	@RequestMapping(value = "/updateCustomer", method = RequestMethod.POST)
+	public String updateCustomer(@ModelAttribute(value = "customer") Customer customer) {
+		LOG.info("updateCustomer  ::" + customer);
+		if (customer != null) {		
+			customerService.updateCustomer(customer);
+		}else {
+			throw new RuntimeException("Customer data can not be null");
+		}
+		return "redirect:/showAll";
+	}
+	
+	@RequestMapping(value = "/editCustomer", method = RequestMethod.GET)
+	public ModelAndView getCustomer(@RequestParam(value="id") Integer id) {
+		LOG.info("getting customer with id ::"+id);
+		if(id == null) {
+			throw new RuntimeException("Customer id can not be null!");
+		}
+		ModelAndView mav = null;
+		try {
+			Customer customer = customerService.getCustomer(id);
+			mav = new ModelAndView("editCustomer", "customer", customer);			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
+		return mav;
 	}
 	
 }

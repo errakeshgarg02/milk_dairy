@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Milk Dairy | Edit Customer Page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<form action="#" th:action="@{/updateCustomer}" th:object="${customer}" method="POST">
+		<fieldset>
+			<legend>Edit Customer</legend>
+			<input type="hidden" th:field="*{id}"/>
+			<input type="hidden" th:field="*{active}"/>
+			Customer code: <input type="text" th:field="*{customerCode}"  readonly="readonly"/> <br/>
+			First name: <input type="text" th:field="*{firstName}" /> <br/>
+			Last name: <input type="text" th:field="*{lastName}" /><br/>
+			Father name: <input type="text" th:field="*{fatherName}" /><br/>
+			Mobile name: <input type="text" th:field="*{mobileNumber}" /><br/>
+			Address: <input type="text" th:field="*{address}" /><br/>
+			<input type="submit" value="Update"/><br/>
+			<a href="/">HOME</a><br/>
+			<a href="/showAll">list all customers</a>
+			
+		</fieldset>
+	</form>
+</body>
+</html>

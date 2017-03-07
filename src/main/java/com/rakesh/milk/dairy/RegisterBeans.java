@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Bean;
 import com.rakesh.milk.dairy.converter.CustomerConverter;
 import com.rakesh.milk.dairy.converter.CustomerToEntityConverter;
 import com.rakesh.milk.dairy.converter.EntityToCustomerConverter;
+import com.rakesh.milk.dairy.converter.EntityToMilkConverter;
+import com.rakesh.milk.dairy.converter.MilkToEntityConverter;
 import com.rakesh.milk.dairy.dao.CustomerDAO;
+import com.rakesh.milk.dairy.dao.MilkDAO;
 import com.rakesh.milk.dairy.prop.MyDataSourceProperties;
 import com.rakesh.milk.dairy.prop.MyJpaProperties;
 import com.rakesh.milk.dairy.service.CustomerService;
@@ -58,9 +61,20 @@ public class RegisterBeans {
 		return new EntityToCustomerConverter();
 	}
 	
-/*	@Bean
-	public CustomerService getCustomerService() {
-		LOG.info("registering bean CustomerService");
-		return new CustomerServiceImpl();
-	}*/
+	@Bean
+	public EntityToMilkConverter getEntityToMilkConverter() {
+		return new EntityToMilkConverter();
+	}
+
+	@Bean
+	public MilkToEntityConverter getMilkToEntityConverter() {
+		return new MilkToEntityConverter();
+	}
+	
+	@Bean
+	public MilkDAO getMilkDAO() {
+		return new MilkDAO();
+	}
+
+	
 }

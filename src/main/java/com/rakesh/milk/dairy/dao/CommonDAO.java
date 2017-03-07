@@ -18,7 +18,7 @@ import com.rakesh.milk.dairy.exception.DAOException;
  *
  */
 @Repository
-public abstract class CommonDAO {
+public abstract class CommonDAO<R> {
 	
 	private static Log LOG = LogFactory.getLog(CommonDAO.class);
 	
@@ -30,7 +30,7 @@ public abstract class CommonDAO {
 	 * @param commerceObject
 	 * @throws DAOException
 	 */
-	public void save(Object commerceObject) throws DAOException {
+	public void save(R commerceObject) throws DAOException {
 		LOG.info("saving object");
 		try {
 			entityManager.persist(commerceObject);
@@ -45,7 +45,7 @@ public abstract class CommonDAO {
 	 * @param commerceObject
 	 * @throws DAOException
 	 */
-	public void delete(Object commerceObject) throws DAOException{
+	public void delete(R commerceObject) throws DAOException{
 		LOG.info("deleting object");
 		try {
 			
@@ -66,9 +66,9 @@ public abstract class CommonDAO {
 	 * @return
 	 * @throws DAOException
 	 */
-	public List findAll(Class clazz) throws DAOException{
+	public List<R> findAll(Class clazz) throws DAOException{
 		LOG.info("findAll");
-		List resultList  = null;
+		List<R> resultList  = null;
 		try {
 			Query createQuery = entityManager.createQuery("from "+clazz.getName());
 			resultList = createQuery.getResultList();
@@ -86,9 +86,9 @@ public abstract class CommonDAO {
 	 * @return
 	 * @throws DAOException
 	 */
-	public List findByValue(Class clazz, String variable, String name) throws DAOException{
-		LOG.info("findByName");
-		List resultList  = null;
+	public List<R> findByValue(Class clazz, String variable, Object name) throws DAOException{
+		LOG.info("findByValue method variable ::"+variable+" and value::"+name);
+		List<R> resultList  = null;
 		try {
 			resultList = entityManager.createQuery("from "+clazz.getName()+" where "+variable+" = :name").setParameter("name", name).getResultList();
 						
@@ -103,7 +103,7 @@ public abstract class CommonDAO {
 	 * @param commerceObject
 	 * @throws DAOException
 	 */
-	public void update(Object commerceObject) throws DAOException{
+	public void update(R commerceObject) throws DAOException{
 		LOG.info("update object");
 		try {
 			entityManager.merge(commerceObject);
@@ -113,11 +113,11 @@ public abstract class CommonDAO {
 		}	
 	}
 	
-	public Object getLastRecord(Class clazz) throws DAOException {
+	public R getLastRecord(Class clazz) throws DAOException {
 		LOG.info("getLastRecord");
-		Object obj  = null;
+		R obj  = null;
 		try {
-			List resultList = entityManager.createQuery("from "+clazz.getName()+" order by CREATED_DATE DESC").setMaxResults(1).getResultList();
+			List<R> resultList = entityManager.createQuery("from "+clazz.getName()+" order by CREATED_DATE DESC").setMaxResults(1).getResultList();
 			LOG.info("getLastRecord list size :"+resultList.size());
 			if(resultList != null && resultList.size() == 1) {
 				obj = resultList.get(0);
@@ -128,5 +128,6 @@ public abstract class CommonDAO {
 		}	
 		return obj;
 	}
+
 	
 }

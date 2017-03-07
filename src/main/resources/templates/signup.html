@@ -8,7 +8,7 @@
 	<form action="#" th:action="@{/register}" th:object="${customer}" method="POST">
 		<fieldset>
 			<legend>Register Customer</legend>
-			Customer code: <input type="text" th:field="*{customerCode}" th:text="${customerCode}" disabled="disabled"/> <br/>
+			Customer code: <input type="text" th:field="*{customerCode}" th:text="${customerCode}" readonly="readonly"/> <br/>
 			First name: <input type="text" th:field="*{firstName}"/> <br/>
 			Last name: <input type="text" th:field="*{lastName}"/><br/>
 			Father name: <input type="text" th:field="*{fatherName}"/><br/>

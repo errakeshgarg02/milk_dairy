@@ -3,12 +3,15 @@ package com.rakesh.milk.dairy.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 /**
  * 
@@ -40,10 +43,13 @@ public class CustomerEntity implements Serializable{
 	private String address;
 	@Column(name="ACTIVE")
 	private Boolean active;
-	@Column(name="CREATED_DATE")
+	@Column(name="CREATED_DATE", insertable=false,updatable=false)
 	private Date createdDate;
-	@Column(name="MODIFIED_DATE")
+	@Column(name="MODIFIED_DATE", insertable=false,updatable=false)
 	private Date modifiedDate;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="customerEntity")
+	private Set<MilkEntity> milkEntity;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -105,12 +111,19 @@ public class CustomerEntity implements Serializable{
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
+	
+	public Set<MilkEntity> getMilkEntity() {
+		return milkEntity;
+	}
+	public void setMilkEntity(Set<MilkEntity> milkEntity) {
+		this.milkEntity = milkEntity;
+	}
 	@Override
 	public String toString() {
 		return "CustomerEntity [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", fatherName="
 				+ fatherName + ", customerCode=" + customerCode + ", mobileNumber=" + mobileNumber + ", address="
 				+ address + ", active=" + active + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
-				+ "]";
+				+ ", milkEntity=" + milkEntity + "]";
 	}	
 	
 }

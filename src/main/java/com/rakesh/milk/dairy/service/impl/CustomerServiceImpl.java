@@ -88,12 +88,42 @@ public class CustomerServiceImpl implements CustomerService {
 		LOG.info("CustomerServiceImpl.getCustomer method with name::"+name);
 		List<Customer> customers = null;
 		try {
-			customers = customerDAO.findByValue(Customer.class, "firstName", name);
+			List<CustomerEntity> customerEntities = customerDAO.findByValue(CustomerEntity.class, "firstName", name);			
+			customers = customerConverter.convertToCustomerView(customerEntities);
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return customers;
+	}
+
+	@Override
+	public void updateCustomer(Customer customer) {
+		LOG.info("CustomerServiceImpl.updateCustomer method");
+		try {
+			CustomerEntity customerEntity = customerConverter.convertToCustomerEntity(customer);
+			customerDAO.update(customerEntity);
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public Customer getCustomer(Integer id) {
+		LOG.info("Getting customer with id ::"+id);
+		Customer customer = null;
+		try {
+			List<CustomerEntity> findByValue = customerDAO.findByValue(CustomerEntity.class, "id", id);
+			customer = customerConverter.convertToCustomerView(findByValue.get(0));
+			
+		}catch (DAOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return customer;
 	}
 
 }

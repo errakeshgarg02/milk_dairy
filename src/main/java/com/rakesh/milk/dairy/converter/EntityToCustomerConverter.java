@@ -14,7 +14,7 @@ public class EntityToCustomerConverter implements Function<CustomerEntity, Custo
 	public Customer apply(CustomerEntity customerEntity) {
 		Customer customer = new Customer();
 		if(customerEntity != null) {
-			
+			customer.setId(customerEntity.getId());
 			customer.setActive(customerEntity.getActive());
 			customer.setAddress(customerEntity.getAddress());
 			customer.setCustomerCode(customerEntity.getCustomerCode());

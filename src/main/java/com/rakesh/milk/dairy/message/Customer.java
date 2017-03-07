@@ -7,6 +7,7 @@ package com.rakesh.milk.dairy.message;
  */
 public class Customer {
 
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private String fatherName;
@@ -18,6 +19,15 @@ public class Customer {
 	public Customer() {
 		
 	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Customer(String customerCode) {
 		this.customerCode = customerCode;
 	}	
@@ -66,9 +76,9 @@ public class Customer {
 	}
 	@Override
 	public String toString() {
-		return "Customer [firstName=" + firstName + ", lastName=" + lastName + ", fatherName=" + fatherName
-				+ ", customerCode=" + customerCode + ", mobileNumber=" + mobileNumber + ", address=" + address
-				+ ", active=" + active + "]";
+		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", fatherName="
+				+ fatherName + ", customerCode=" + customerCode + ", mobileNumber=" + mobileNumber + ", address="
+				+ address + ", active=" + active + "]";
 	}
 	
 	
